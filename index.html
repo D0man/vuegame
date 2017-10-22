@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Monster game</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/app.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <section class="section info">
+                <div class="box">
+                    <h2>{{player}}</h2>
+                    <div class="hp">
+                        <div class="hp hp-bar":style="{width: playerHealth +'%'}">{{playerHealth}}</div>
+                    </div>
+                </div>
+                <div class="box">
+                    <h2>{{monster}}</h2>
+                    <div class="hp">
+                        <div class="hp hp-bar" :style="{width: monsterHealth +'%'}">{{monsterHealth}}</div>
+                    </div>
+                </div>
+                </section>
+            <section class="section controls">
+                <template v-if="showInput">
+                            <label class="name" for="name">Imię:<input v-model="player" @keyup.enter="changeInput" id="name" type="text"></label>
+                            <button @click="changeInput"class="button button-heal green">Start New Game</button>
+                </template>
+                <template v-else>
+                <button @click="attack" class="button button-attack red">Atak</button>
+                <button @click="heal"class="button button-heal green">leczenie</button>
+                <button @click="startFight" class="button button-restart orange">restart</button>
+                <button @click="surrender" class="button button-giveUp">poddaj</button>
+                </template>
+            </section>
+            <section class="section fight">
+                <ul class="turns">
+                    <li v-for="turn in turns">{{turn.turn}}</li>   
+                </ul>
+            </section>  
+        </div>
+    </div>    
+</body>
+</html>
