@@ -17,6 +17,9 @@
                     <div class="hp">
                         <div class="hp hp-bar":style="{width: playerHealth +'%'}">{{playerHealth}}</div>
                     </div>
+                    <div class="mp">
+                        <div class="mp-bar":style="{width: playerMagic +'%'}">{{playerMagic/10}}</div>
+                    </div>
                 </div>
                 <div class="box">
                     <h2>{{monster}}</h2>
@@ -32,6 +35,7 @@
                 </template>
                 <template v-else>
                 <button @click="attack" class="button button-attack red">Atak</button>
+                <button @click="attack(false)" class="button animated">SA</button>
                 <button @click="heal"class="button button-heal green">leczenie</button>
                 <button @click="startFight" class="button button-restart orange">restart</button>
                 <button @click="surrender" class="button button-giveUp">poddaj</button>

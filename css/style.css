@@ -21,6 +21,18 @@
 .hp-bar{
     background: #54FF54;
 }
+.mp{
+    border-radius: 2px; 
+    margin:1px auto; 
+    width:90%;
+    height:10px;
+    background: #ccc;
+    box-shadow: 0 0 2px 0 black;
+}
+.mp-bar{
+    font-size: 10px;
+    background: rgb(90, 160, 245);
+}
 .name{
     display: flex;
     align-self: center;
@@ -38,8 +50,19 @@
     cursor: pointer;
 }
 .button:hover{
-    border:1px solid black;
-    margin: 9px;
+   outline: 1px solid black;
+   color:white;
+
+}
+@keyframes superanimation  {
+    0% {background: green;}
+    25% {background: yellowgreen;}
+    50% {background: yellow;}
+    100% {background: red;}
+}
+.animated{
+    animation: superanimation 3s infinite;
+   
 }
 .green{
     background: #54FF54;

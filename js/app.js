@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded',function(){
             monster: 'Potwór',
             player: 'Bohater',
             playerHealth: 0,
+            playerMagic: 0,
             monsterHealth: 0,
             turns: [],
             showInput: true,
@@ -48,16 +49,26 @@ document.addEventListener('DOMContentLoaded',function(){
                     this.showInput=true;
                 }
             },
+            //TODO dodać nawigacje zamiast alertów
             isEnd() {
+                if(this.playerHealth<=0&&this.monsterHealth<=0){
+                    this.playerHealth = 0;
+                    setTimeout(function(){ alert("Przegrales") }, 1);
+                    setTimeout(this.restart(), 2000);
+                    return; 
+                }
                 if(this.playerHealth<=0){
                     this.playerHealth = 0;
-                    setTimeout(function(){ alert("Przegrales"); }, 100);
-                    this.restart();
+                    setTimeout(function(){ alert("Przegrales")}, 100);
+                    setTimeout(this.restart(), 200);
+                    return; 
+                   
                 }
                 if(this.monsterHealth<=0){
                     this.monsterHealth = 0;
-                    setTimeout(function(){ alert("wygrales!"); }, 100);
-                    this.restart();
+                    setTimeout(function(){ alert("wygrales!")}, 100);
+                    setTimeout(this.restart(), 200);
+                    return;
                 }
             },
             monsterAttack() {
@@ -69,8 +80,7 @@ document.addEventListener('DOMContentLoaded',function(){
             playerAttack(){
                 let dmg = this.randomNumber(2,15);
                 this.turns.unshift({turn: this.playerText()+' '+ dmg+' obrażeń'});
-                this.monsterHealth-= dmg
-                
+                this.monsterHealth-= dmg     
             },
             playerHeal(){
                 let dmg = this.randomNumber(5,10);
@@ -83,13 +93,33 @@ document.addEventListener('DOMContentLoaded',function(){
                     this.playerHealth+= dmg;
                 }
             },
-            attack(){
+            attack(bool){
                 if(this.playerHealth === 0||this.monsterHealth === 0){
                     return;
                 }
-                this.playerAttack();
+                bool ? this.playerAttack(): this.playerSuperAttack();
                 this.monsterAttack();
                 this.isEnd();
+            },
+            superAttack(){
+                if(this.playerHealth === 0||this.monsterHealth === 0){
+                    return;
+                }
+                this.playerSuperAttack();
+                this.monsterAttack();
+                this.isEnd();
+            },
+            // TODO połączyć z atakiem z playersuperatack
+            playerSuperAttack(){
+                if (this.playerMagic>=50){
+                this.playerMagic-=50
+                let dmg = this.randomNumber(2,10)*3;
+                this.turns.unshift({turn: this.player+' wykonuje atak specjalny za'+ dmg+' obrażeń'});
+                this.monsterHealth-= dmg  
+                }
+                else{
+                    this.turns.unshift({turn: this.player+' ma za mało many'});
+                }   
             },
             heal(){
                 if(this.playerHealth === 0||this.monsterHealth === 0){
@@ -105,9 +135,13 @@ document.addEventListener('DOMContentLoaded',function(){
             },
             startFight(){
                 this.playerHealth = 100;
+                this.playerMagic = 100;
                 this.monsterHealth = 100;
                 this.turns= [];
             },
+            check(){
+                return false;
+            }
         }
     });
 });
