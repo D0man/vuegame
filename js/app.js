@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded',function(){
         data: {
             monster: 'Potwór',
             player: 'Bohater',
+            playerStat: {
+                str: 0,
+                dex: 0,
+                sat:100,
+            },
             playerHealth: 0,
             playerMagic: 0,
             monsterHealth: 0,
@@ -75,7 +80,6 @@ document.addEventListener('DOMContentLoaded',function(){
                 let dmg = this.randomNumber(1,20);
                 this.turns.unshift({turn: this.monsterText() +' '+ dmg + ' obrazeń'});
                 this.playerHealth-= dmg
-               
             },
             playerAttack(){
                 let dmg = this.randomNumber(2,15);
